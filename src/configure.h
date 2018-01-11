@@ -11,7 +11,7 @@
 // CONSTANTS
 //------------------------------------------------------------------------------
 
-//#define VERBOSE           (1)  // add to get a lot more serial output.
+#define VERBOSE           (1)  // add to get a lot more serial output.
 
 
 
@@ -30,8 +30,9 @@
 //#define ARM4            11
 //#define ARM5            12
 #define ARM6            13
+#define POWLARGRAPH     14
 
-#define MACHINE_STYLE POLARGRAPH  // change this
+#define MACHINE_STYLE POWLARGRAPH  // change this
 
 // robot style descriptions
 #include "robot_polargraph.h"
@@ -47,21 +48,23 @@
 //#include "robot_arm4.h"
 //#include "robot_arm5.h"
 #include "robot_arm6.h"
-
+#include "robot_powlargraph.h"
 
 // Boards supported
 #define BOARD_RUMBA        1
 #define BOARD_RAMPS        2
 #define BOARD_SANGUINOLULU 3
 #define BOARD_TEENSYLU     4
+#define BOARD_POW          5
 
-#define MOTHERBOARD BOARD_RUMBA  // change this
+#define MOTHERBOARD BOARD_POW  // change this
 
 // Board descriptions
 #include "board_rumba.h"
 #include "board_ramps.h"
 #include "board_sanguinolulu.h"
 #include "board_teensylu.h"
+#include "board_pow.h"
 
 // sanity checks
 #if NUM_MOTORS > MAX_MOTORS
@@ -77,8 +80,8 @@
 #define MAX_BUF              (64)  // What is the longest message Arduino can store?
 
 // motor details
-#define MICROSTEPS           (16.0)  // change this.  microstepping on this microcontroller
-#define DEGREES_PER_STEP     ( 0.9)  // change this.  as advertised by the stepper motor maker
+#define MICROSTEPS           (8.0)  // change this.  microstepping on this microcontroller
+#define DEGREES_PER_STEP     (1.8)  // change this.  as advertised by the stepper motor maker
 
 #define NORMAL_MOTOR_STEPS   (360.0/DEGREES_PER_STEP)  // 360/0.9=400.  360/1.8=200.
 #define STEPS_PER_TURN       (NORMAL_MOTOR_STEPS * MICROSTEPS)  // default number of steps per turn * microsteps
@@ -201,4 +204,3 @@ extern char lcd_message[LCD_MESSAGE_LENGTH];
 
 
 #endif // CONFIGURE_H
-

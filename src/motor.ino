@@ -247,9 +247,9 @@ void setPenAngle(int arg0) {
 #if NUM_AXIES>=3
   if(arg0 < axies[2].limitMin) arg0=axies[2].limitMin;
   if(arg0 > axies[2].limitMax) arg0=axies[2].limitMax;
-  
+
   axies[2].pos = arg0;
-  
+
 #if NUM_SERVOS>0
   servos[0].write(arg0);
 #endif
@@ -486,7 +486,7 @@ void motor_set_step_count(long *a) {
  **/
 void motor_onestep(int motor) {
 #ifdef VERBOSE
-  Serial.print(motorNames[motor]);
+  Serial.print(MotorNames[motor]);
 #endif
 
   digitalWrite(motors[motor].step_pin,HIGH);
@@ -679,7 +679,7 @@ ISR(TIMER1_COMPA_vect) {
         digitalWrite(MOTOR_5_STEP_PIN,HIGH);
       }
 #endif
-      
+
       // make a step
       steps_taken++;
       if(steps_taken>=steps_total) break;
@@ -711,7 +711,7 @@ ISR(TIMER1_COMPA_vect) {
     }
 
     OCR1A = (OCR1A < (TCNT1 + 16)) ? (TCNT1 + 16) : OCR1A;
-    
+
     // Is this segment done?
     if( steps_taken >= steps_total ) {
       // Move on to next segment without wasting an interrupt tick.
@@ -754,7 +754,7 @@ void motor_line(long *n,float new_feed_rate) {
     Serial.print(",\t");
   }
   Serial.print('\n');//*/
-  
+
   // use LCD to adjust speed while drawing
 #ifdef HAS_LCD
   new_feed_rate *= (float)speed_adjust * 0.01f;
@@ -820,7 +820,7 @@ void motor_line(long *n,float new_feed_rate) {
   len = sqrt( len );
   float ilen = 1.0f / len;
   float iSecond = new_feed_rate * ilen;
-  
+
   for(i=0;i<NUM_MOTORS;++i) {
     new_seg.a[i].delta_normalized = new_seg.a[i].delta * ilen;
   }
@@ -853,7 +853,7 @@ void motor_line(long *n,float new_feed_rate) {
     d = new_seg.a[NUM_SERVOS].delta_normalized - old_seg.a[NUM_SERVOS].delta_normalized;    sum += d*d;
 #endif
 
-    
+
     float jerk = sqrt(sum);
     float vmax_junction_factor = 1.0;
     if(jerk> max_xy_jerk) {

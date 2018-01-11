@@ -76,7 +76,7 @@ char readSwitches() {
 }
 
 
-/** 
+/**
  * feed rate is given in units/min and converted to cm/s
  */
 void setFeedRate(float v1) {
@@ -123,11 +123,11 @@ void parseLimits() {
   int axisNumber = parseNumber('A',-1);
   if(axisNumber==-1) return;
   if(axisNumber>=NUM_AXIES) return;
-  
+
   float newT = parseNumber('T', axies[axisNumber].limitMax);
   float newB = parseNumber('B', axies[axisNumber].limitMin);
   boolean changed=false;
-  
+
   if(!equalEpsilon(axies[axisNumber].limitMax,newT)) {
     axies[axisNumber].limitMax=newT;
     changed=true;
@@ -166,7 +166,7 @@ void testKinematics() {
 
     IK(axies1, A);
     FK(A, axies2);
-    
+
     for (j = 0; j < NUM_AXIES; ++j) {
       Serial.print('\t');
       Serial.print(AxisNames[j]);
@@ -207,7 +207,7 @@ void lineSafeInternal(float *pos, float new_feed_rate) {
   for(i=0;i<NUM_AXIES;++i) {
     axies[i].pos = pos[i];
   }
-  
+
   feed_rate = new_feed_rate;
   motor_line(steps, new_feed_rate);
 }
@@ -231,7 +231,7 @@ void lineSafe(float *pos, float new_feed_rate) {
   float delta[NUM_AXIES];
   float start[NUM_AXIES];
   float temp[NUM_AXIES];
-  float len=0;  
+  float len=0;
   for(i=0;i<NUM_AXIES;++i) {
     start[i] = axies[i].pos;
     delta[i] = destination[i] - start[i];
@@ -301,7 +301,7 @@ void arc(float cx, float cy, float *destination, char clockwise, float new_feed_
   float sz = axies[2].pos;
   float z = destination[2];
   #endif
-  
+
   for (i = 0; i <= segments; ++i) {
     // interpolate around the arc
     scale = ((float)i) / ((float)segments);
@@ -330,7 +330,7 @@ void teleport(float *pos) {
   for(i=0;i<NUM_AXIES;++i) {
     axies[i].pos = pos[i];
   }
-  
+
   long steps[NUM_MOTORS+NUM_SERVOS];
   IK(pos, steps);
   motor_set_step_count(steps);
@@ -384,10 +384,10 @@ void where() {
   }
 
   printFeedRate();
-  
+
   Serial.print(F(" A"  ));
   Serial.println(acceleration);
-  
+
   for(i=0;i<NUM_AXIES;++i) {
     Serial.print('H');
     Serial.print(AxisNames[i]);
@@ -405,14 +405,14 @@ void printConfig() {
   int i;
 
   Serial.print(F("("));
-  
+
   for(i=0;i<NUM_AXIES;++i) {
     Serial.print(axies[i].limitMin);
     if(i<NUM_AXIES-1)  Serial.print(',');
   }
 
   Serial.print(F(") - ("));
-  
+
   for(i=0;i<NUM_AXIES;++i) {
     Serial.print(axies[i].limitMax);
     if(i<NUM_AXIES-1)  Serial.print(',');
@@ -491,18 +491,18 @@ void parseLine() {
   get_end_plus_offset(offset);
   acceleration = min(max(parseNumber('A', acceleration), MIN_ACCELERATION), MAX_ACCELERATION);
   float f = parseNumber('F', feed_rate);
-  
+
   int i;
   float pos[NUM_AXIES];
   for(i=0;i<NUM_AXIES;++i) {
     pos[i] = parseNumber(AxisNames[i], (absolute_mode ? offset[i] : 0)) + (absolute_mode ? 0 : offset[i]);
   }
-  
+
   lineSafe( pos, f );
 }
 
 
-/** 
+/**
  * arcs in the XY plane
  * @param clockwise 1 for cw, 0 for ccw
  */
@@ -511,13 +511,13 @@ void parseArc(int clockwise) {
   get_end_plus_offset(offset);
   acceleration = min(max(parseNumber('A', acceleration), MIN_ACCELERATION), MAX_ACCELERATION);
   float f = parseNumber('F', feed_rate);
-  
+
   int i;
   float pos[NUM_AXIES];
   for(i=0;i<NUM_AXIES;++i) {
     pos[i] = parseNumber(AxisNames[i], (absolute_mode ? offset[i] : 0)) + (absolute_mode ? 0 : offset[i]);
   }
-  
+
   arc(parseNumber('I', (absolute_mode ? offset[0] : 0)) + (absolute_mode ? 0 : offset[0]),
       parseNumber('J', (absolute_mode ? offset[1] : 0)) + (absolute_mode ? 0 : offset[1]),
       pos,
@@ -529,7 +529,7 @@ void parseArc(int clockwise) {
 void parseTeleport() {
   float offset[NUM_AXIES];
   get_end_plus_offset(offset);
-  
+
   int i;
   float pos[NUM_AXIES];
   for(i=0;i<NUM_AXIES;++i) {
@@ -583,12 +583,12 @@ char checkCRCisOK() {
 
     line_number++;
   }
-  
+
   return 1;  // ok!
 }
 
 /**
- * M117 [string] 
+ * M117 [string]
  * Display string on the LCD panel.  Command is ignored if there is no LCD panel.
  */
 void parseMessage() {
@@ -599,7 +599,7 @@ void parseMessage() {
     if(serialBuffer[i]==0) {
       // no message
       lcd_message[0]=0;
-      return;  
+      return;
     }
   }
 
@@ -613,7 +613,7 @@ void parseMessage() {
 
 
 /**
- * M226 P[a] S[b] 
+ * M226 P[a] S[b]
  * Wait for pin a to be in state b (1 or 0).  if P or S are missing, wait for user to press click wheel on LCD
  * Command is ignored if there is no LCD panel (and no button to press)
  */
@@ -622,7 +622,7 @@ void pauseForUserInput() {
   int pin = parseNumber('P', BTN_ENC);
   int newState = parseNumber('S', 1);
   newState = (newState==1)?HIGH:LOW;
-  
+
   while(digitalRead(pin)!=newState) {
     SD_check();
     LCD_update();
@@ -670,7 +670,7 @@ void processCommand() {
     case  3:  parseArc(0);  break;  // counter-clockwise
     case  4:  parseDwell();  break;
     case 28:  robot_findHome();  break;
-    #if MACHINE_STYLE == POLARGRAPH
+    #if (MACHINE_STYLE == POLARGRAPH || MACHINE_STYLE == POWLARGRAPH)
     case 29:  calibrateBelts();  break;
     #endif
     case 54:
@@ -703,7 +703,7 @@ void processCommand() {
               Serial.print(F("D10 V"));
               Serial.println(MACHINE_HARDWARE_VERSION);
               break;
-#if MACHINE_STYLE == POLARGRAPH
+#if (MACHINE_STYLE == POLARGRAPH || MACHINE_STYLE == POWLARGRAPH)
     case 11:  makelangelo5Setup();  break;
     case 12:  recordHome();
 #endif
@@ -715,7 +715,7 @@ void processCommand() {
 }
 
 
-#if MACHINE_STYLE == POLARGRAPH
+#if (MACHINE_STYLE == POLARGRAPH || MACHINE_STYLE == POWLARGRAPH)
 void makelangelo5Setup() {
   // if you accidentally upload m3 firmware to an m5 then upload it ONCE with this line uncommented.
   float limits[NUM_AXIES*2];
@@ -726,7 +726,7 @@ void makelangelo5Setup() {
   limits[4] = PEN_UP_ANGLE;
   limits[5] = PEN_DOWN_ANGLE;
   adjustDimensions(limits);
-  
+
   calibrateLeft=1011;
   calibrateRight=1011;
   saveCalibration();
@@ -755,7 +755,7 @@ void jogMotors() {
   int i, j, amount;
 
   motor_engage();
-  
+
   for (i = 0; i < NUM_MOTORS; ++i) {
     if (MotorNames[i] == 0) continue;
     amount = parseNumber(MotorNames[i], 0);
@@ -811,7 +811,7 @@ boolean equalEpsilon(float a, float b) {
 
 void setHome(float *pos) {
   boolean changed=false;
-  
+
   int i;
   for(i=0;i<NUM_AXIES;++i) {
     if(!equalEpsilon(axies[i].homePos,pos[i])) changed=true;
@@ -878,7 +878,7 @@ void setup() {
   setFeedRate(DEFAULT_FEEDRATE);
 
   robot_setup();
-  
+
   // display the help at startup.
   help();
 
@@ -942,7 +942,7 @@ void loop() {
   Serial.print( digitalRead(MOTOR_4_LIMIT_SWITCH_PIN)==HIGH ? "1 " : "0 ");
   Serial.print( digitalRead(MOTOR_5_LIMIT_SWITCH_PIN)==HIGH ? "1 " : "0 ");
   Serial.println();*/
-  
+
 #endif
 }
 
