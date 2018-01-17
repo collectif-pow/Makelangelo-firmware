@@ -5,7 +5,7 @@
 // http://www.github.com/MarginallyClever/makelangeloFirmware for more information.
 //------------------------------------------------------------------------------
 
-#if (MACHINE_STYLE == POLARGRAPH || MACHINE_STYLE == POWLARGRAPH)
+#if MACHINE_STYLE == POLARGRAPH
 
 
 /**

@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 
 
-#if MOTHERBOARD == BOARD_RAMPS 
+#if MOTHERBOARD == BOARD_RAMPS
 // wrong board type set
 #ifndef __AVR_ATmega2560__
   #error "Oops!  Make sure you have 'Arduino Mega 2560' selected from the 'Tools -> Boards' menu."
@@ -53,7 +53,7 @@
 // Smart controller settings
 #define BEEPER             37   /* Pin on SMART Adapter */
 #define LCD_PINS_RS        16   /* Pin on SMART Adapter */
-#define LCD_PINS_ENABLE    17   /* Pin on SMART Adapter */ 
+#define LCD_PINS_ENABLE    17   /* Pin on SMART Adapter */
 #define LCD_PINS_D4        23   /* Pin on SMART Adapter */
 #define LCD_PINS_D5        25   /* Pin on SMART Adapter */
 #define LCD_PINS_D6        27   /* Pin on SMART Adapter */
@@ -85,4 +85,3 @@
 #endif
 
 #endif  // BOARD_RAMPS_H
-
