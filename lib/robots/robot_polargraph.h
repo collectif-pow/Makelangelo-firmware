@@ -44,8 +44,8 @@
 #define HAS_LCD                  // comment this out if there is no SMART LCD controller
 #endif
 #if MACHINE_HARDWARE_VERSION == 3
-#define HAS_SD                   // comment this out if there is no SD card
-#define HAS_LCD                  // comment this out if there is no SMART LCD controller
+// #define HAS_SD                   // comment this out if there is no SD card
+// #define HAS_LCD                  // comment this out if there is no SMART LCD controller
 #endif
 
 
