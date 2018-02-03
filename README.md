@@ -11,7 +11,7 @@ Inspired by http://www.makelangelo.com/
 * [Nema 17](https://www.amazon.fr/gp/product/B06XQWMDWT/ref=oh_aui_detailpage_o04_s00?ie=UTF8&psc=1) motors
 * [Ramps 1.4 board](https://www.amazon.fr/gp/product/B06XPST1SY/ref=oh_aui_detailpage_o01_s00?ie=UTF8&psc=1)
 * [GT pulley and belt](https://www.amazon.fr/gp/product/B076H459L6)
-* [3D printed parts](https://www.thingiverse.com/thing:798076)
+* [3D printed parts](https://www.thingiverse.com/thing:1484237)
 * [SG 90 servo motor](https://www.amazon.fr/Hrph-Moteur-Helicopter-Contr%C3%B4le-Voiture/dp/B01HZ8NBIC/ref=sr_1_1?ie=UTF8&qid=1516186547&sr=8-1&keywords=servo+moteur+sg90)
 * 12v/3A power supply
 
