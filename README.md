@@ -29,8 +29,8 @@ Running with [Makelangelo Software](https://github.com/MarginallyClever/Makelang
 * Machine width: 1120,0 mm
 * Machine height: 1743,0 mm
 * Acceleration: 500
-* Max speed: 500
-* Draw speed: 500
+* Max speed: 500 (slow but precise) - 1500 (faster with a bit of jitter)
+* Draw speed: 500 (slow but precise) - 1500 (faster with a bit of jitter)
 * Pen up: 90,0
 * Pen down: 135,0
 * Lift delay: 50,0
